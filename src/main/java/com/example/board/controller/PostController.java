@@ -3,6 +3,7 @@ package com.example.board.controller;
 
 import com.example.board.domain.Post;
 import com.example.board.dto.CreatePostRequest;
+import com.example.board.dto.UpdatePostRequest;
 import com.example.board.exception.PostNotFoundException;
 import com.example.board.service.PostService;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public Post updatePost(@RequestBody CreatePostRequest request, @PathVariable Long id) {
+    public Post updatePost(@RequestBody UpdatePostRequest request, @PathVariable Long id) {
         return postService.updatePost(request.getTitle(), request.getContent(), id);
     }
 

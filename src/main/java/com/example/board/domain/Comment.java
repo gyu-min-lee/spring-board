@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Post {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,18 +21,15 @@ public class Post {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private String title;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+
     private String content;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
     }
 }

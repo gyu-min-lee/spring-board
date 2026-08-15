@@ -31,7 +31,6 @@ public class PostService {
         post.setTitle(title);
         post.setContent(content);
         post.setMember(member);
-        post.setCreatedAt(LocalDateTime.now());
 
         return postRepository.save(post);
     }
@@ -52,7 +51,6 @@ public class PostService {
 
         post.setTitle(title);
         post.setContent(content);
-        post.setUpdatedAt(LocalDateTime.now());
 
         return postRepository.save(post);
     }
