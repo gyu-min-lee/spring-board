@@ -44,10 +44,14 @@ public class PostService {
                 .orElseThrow(() -> new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
     }
 
-    public Post updatePost(String title, String content, Long id) {
+    public Post updatePost(String title, String content, Long id, String username) {
 
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
+
+        if(!post.getMember().getUsername().equals(username)) {
+            throw new IllegalStateException("게시글 수정 권한이 없습니다.");
+        }
 
         post.setTitle(title);
         post.setContent(content);
@@ -55,9 +59,14 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public void deletePost(Long id) {
+    public void deletePost(Long id, String username) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
+
+        if(!post.getMember().getUsername().equals(username)) {
+            throw new IllegalStateException("게시글 삭제 권한이 없습니다.");
+        }
+
         postRepository.delete(post);
     }
 }
