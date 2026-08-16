@@ -22,10 +22,10 @@ public class PostService {
         this.memberRepository = memberRepository;
     }
 
-    public Post createPost(String title, String content) {
+    public Post createPost(String title, String content, String username) {
 
-        Member member = memberRepository.findById(1L)
-                .orElseThrow(() -> new IllegalStateException("임시 사용자가 없습니다."));
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 사용자입니다."));
 
         Post post = new Post();
         post.setTitle(title);

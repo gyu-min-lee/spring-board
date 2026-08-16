@@ -1,6 +1,7 @@
 package com.example.board.controller;
 
 import com.example.board.domain.Member;
+import com.example.board.dto.LoginRequest;
 import com.example.board.dto.SignUpRequest;
 import com.example.board.service.MemberService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,5 +24,9 @@ public class MemberController {
         return memberService.signUp(request.getUsername(), request.getPassword(), request.getNickname());
     }
 
+    @PostMapping("/login")
+    public String login(@RequestBody LoginRequest request) {
+        return memberService.login(request.getUsername(), request.getPassword());
+    }
 
 }

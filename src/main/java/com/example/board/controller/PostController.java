@@ -6,6 +6,7 @@ import com.example.board.dto.CreatePostRequest;
 import com.example.board.dto.UpdatePostRequest;
 import com.example.board.exception.PostNotFoundException;
 import com.example.board.service.PostService;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +23,9 @@ public class PostController {
     }
 
     @PostMapping
-    public Post createPost(@RequestBody CreatePostRequest request) {
-        return postService.createPost(request.getTitle(), request.getContent());
+    public Post createPost(@RequestBody CreatePostRequest request, Authentication authentication) {
+        String username = authentication.getName();
+        return postService.createPost(request.getTitle(), request.getContent(), username);
     }
 
     @GetMapping
