@@ -1,10 +1,12 @@
 package com.example.board.controller;
 
 
+import com.example.board.domain.Comment;
 import com.example.board.domain.Post;
 import com.example.board.dto.CreatePostRequest;
 import com.example.board.dto.UpdatePostRequest;
 import com.example.board.exception.PostNotFoundException;
+import com.example.board.service.CommentService;
 import com.example.board.service.PostService;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +19,11 @@ import java.util.Optional;
 public class PostController {
 
     private final PostService postService;
+    private final CommentService commentService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, CommentService commentService) {
         this.postService = postService;
+        this.commentService = commentService;
     }
 
     @PostMapping
@@ -46,5 +50,10 @@ public class PostController {
     @DeleteMapping("/{id}")
     public void deletePost(@PathVariable Long id, Authentication authentication) {
         postService.deletePost(id, authentication.getName());
+    }
+
+    @GetMapping("/{postId}/comments")
+    public List<Comment> getCommentsByPostId(@PathVariable Long postId) {
+        return commentService.getCommentsByPostId(postId);
     }
 }
