@@ -50,7 +50,7 @@ class PostServiceTest {
     }
 
     @Test
-    void 수정_성공() {
+    void 게시글_수정_성공() {
         // given
         memberService.signUp("testuser", "1234", "닉네임");
         Post post = postService.createPost("testtitle", "testcontent", "testuser");
@@ -61,7 +61,7 @@ class PostServiceTest {
     }
 
     @Test
-    void 수정_실패_존재하지않음() {
+    void 게시글_수정_실패_존재하지않음() {
         // when & then
         assertThatThrownBy(() -> postService.updatePost("updatetitle", "updatecontent", 999L, "testuser"))
                 .isInstanceOf(PostNotFoundException.class)
@@ -69,7 +69,7 @@ class PostServiceTest {
     }
 
     @Test
-    void 수정_실패_작성자아님() {
+    void 게시글_수정_실패_작성자아님() {
         // given
         memberService.signUp("testuser", "1234", "닉네임");
         memberService.signUp("otheruser", "4321", "닉네임1");
@@ -81,7 +81,7 @@ class PostServiceTest {
     }
 
     @Test
-    void 삭제_성공() {
+    void 게시글_삭제_성공() {
         // given
         memberService.signUp("testuser", "1234", "닉네임");
         Post post = postService.createPost("testtitle", "testcontent", "testuser");
@@ -93,7 +93,7 @@ class PostServiceTest {
     }
 
     @Test
-    void 삭제_실패_존재하지않음() {
+    void 게시글_삭제_실패_존재하지않음() {
         // when & then
         assertThatThrownBy(() -> postService.deletePost(999L, "testuser"))
                 .isInstanceOf(PostNotFoundException.class)
@@ -101,7 +101,7 @@ class PostServiceTest {
     }
 
     @Test
-    void 삭제_실패_작성자아님() {
+    void 게시글_삭제_실패_작성자아님() {
         // given
         memberService.signUp("testuser", "1234", "닉네임");
         memberService.signUp("otheruser", "4321", "닉네임1");
