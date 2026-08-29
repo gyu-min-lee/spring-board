@@ -64,7 +64,7 @@ public class CommentService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
 
         if (!comment.getMember().getUsername().equals(username)) {
-            throw new IllegalStateException("댓글 수정 권한이 없습니다.");
+            throw new IllegalStateException("댓글 삭제 권한이 없습니다.");
         }
 
         commentRepository.delete(comment);
