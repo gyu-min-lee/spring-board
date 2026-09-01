@@ -1,6 +1,7 @@
 package com.example.board.controller;
 
 import com.example.board.domain.Comment;
+import com.example.board.dto.CommentResponse;
 import com.example.board.dto.CreateCommentRequest;
 import com.example.board.dto.UpdateCommentRequest;
 import com.example.board.service.CommentService;
@@ -20,13 +21,15 @@ public class CommentController {
     }
 
     @PostMapping
-    public Comment createComment(@RequestBody CreateCommentRequest request, Authentication authentication) {
-        return commentService.createComment(request.getPostId(), request.getContent(), authentication.getName());
+    public CommentResponse createComment(@RequestBody CreateCommentRequest request, Authentication authentication) {
+        Comment comment = commentService.createComment(request.getPostId(), request.getContent(), authentication.getName());
+        return CommentResponse.from(comment);
     }
 
     @PutMapping("/{id}")
-    public Comment updateComment(@RequestBody UpdateCommentRequest request, @PathVariable Long id, Authentication authentication) {
-        return commentService.updateComment(request.getContent(), id, authentication.getName());
+    public CommentResponse updateComment(@RequestBody UpdateCommentRequest request, @PathVariable Long id, Authentication authentication) {
+        Comment comment = commentService.updateComment(request.getContent(), id, authentication.getName());
+        return CommentResponse.from(comment);
     }
 
     @DeleteMapping("/{id}")

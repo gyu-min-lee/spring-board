@@ -3,7 +3,9 @@ package com.example.board.controller;
 
 import com.example.board.domain.Comment;
 import com.example.board.domain.Post;
+import com.example.board.dto.CommentResponse;
 import com.example.board.dto.CreatePostRequest;
+import com.example.board.dto.PostResponse;
 import com.example.board.dto.UpdatePostRequest;
 import com.example.board.exception.PostNotFoundException;
 import com.example.board.service.CommentService;
@@ -27,24 +29,28 @@ public class PostController {
     }
 
     @PostMapping
-    public Post createPost(@RequestBody CreatePostRequest request, Authentication authentication) {
+    public PostResponse createPost(@RequestBody CreatePostRequest request, Authentication authentication) {
         String username = authentication.getName();
-        return postService.createPost(request.getTitle(), request.getContent(), username);
+        Post post = postService.createPost(request.getTitle(), request.getContent(), username);
+        return PostResponse.from(post);
     }
 
     @GetMapping
-    public List<Post> getAllPosts() {
-        return postService.getAllPosts();
+    public List<PostResponse> getAllPosts() {
+        return postService.getAllPosts().stream()
+                .map(PostResponse::from)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public Post getPost(@PathVariable Long id) {
-        return postService.getPost(id);
+    public PostResponse getPost(@PathVariable Long id) {
+        return PostResponse.from(postService.getPost(id));
     }
 
     @PutMapping("/{id}")
-    public Post updatePost(@RequestBody UpdatePostRequest request, @PathVariable Long id, Authentication authentication) {
-        return postService.updatePost(request.getTitle(), request.getContent(), id, authentication.getName());
+    public PostResponse updatePost(@RequestBody UpdatePostRequest request, @PathVariable Long id, Authentication authentication) {
+        Post post =postService.updatePost(request.getTitle(), request.getContent(), id, authentication.getName());
+        return PostResponse.from(post);
     }
 
     @DeleteMapping("/{id}")
@@ -53,7 +59,9 @@ public class PostController {
     }
 
     @GetMapping("/{postId}/comments")
-    public List<Comment> getCommentsByPostId(@PathVariable Long postId) {
-        return commentService.getCommentsByPostId(postId);
+    public List<CommentResponse> getCommentsByPostId(@PathVariable Long postId) {
+        return commentService.getCommentsByPostId(postId).stream()
+                .map(CommentResponse::from)
+                .toList();
     }
 }
