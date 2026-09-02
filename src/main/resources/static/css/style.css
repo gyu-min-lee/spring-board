@@ -1,0 +1,69 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Roboto, "Malgun Gothic", sans-serif;
+    background-color: #f5f6f8;
+    color: #1f2328;
+}
+
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 16px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.status-message {
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #eef1f4;
+    color: #555;
+}
+
+.status-message.error {
+    background-color: #fdecea;
+    color: #b3261e;
+}
+
+.post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.post-item {
+    background-color: #fff;
+    border: 1px solid #e2e5e9;
+    border-radius: 8px;
+    padding: 16px 20px;
+}
+
+.post-title {
+    margin: 0 0 8px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.post-meta {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: #757b83;
+}
+
+.post-preview {
+    margin: 0;
+    font-size: 14px;
+    color: #3d4249;
+    line-height: 1.5;
+    white-space: pre-line;
+}
